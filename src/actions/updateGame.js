@@ -1,0 +1,124 @@
+import initGameState from './initGameState';
+import Entity, {createApple} from '../models/Entity';
+import last from 'lodash/last';
+
+/**
+ * Updates the game simulation. Game turns are taken when the `turnTimer` runs out.
+ */
+export default function updateGame(game, dt) {
+  game.turnTimer += dt;
+
+  // Slowly reduce the turn duration to make the game faster and more difficult with time.
+  game.turnDuration *= 0.9999;
+
+  if (game.turnTimer >= game.turnDuration) {
+    takeTurn(game);
+    game.turnTimer = 0;
+  }
+}
+
+/**
+ * Mutates the game by executing one full turn and handles all state changes that result.
+ * The game may be in a temporarily illegal state at any time during this function,
+ * like snake segments on top of other segments,
+ * but it is expected to be in a fully valid state before and after the function.
+ * Any potentially illegal states need to be checked and reconciled before the function ends.
+ */
+function takeTurn(game) {
+  // Move the snake with the last input direction
+  moveSnake(game.snake, game.inputDir);
+
+  // Check for collision events and handle all possible game state changes.
+  checkSnakeOutOfBounds(game);
+  checkSnakeEatSelf(game);
+  checkSnakeEatApple(game);
+}
+
+/**
+ * Moves the snake in the given direction.
+ */
+function moveSnake(snake, inputDir) {
+  const head = snake.segments[0];
+
+  // Move the head first, because our algorithm reads the previous positions
+  // of the preceding segments to move them to, so this works.
+  head.moveDir(inputDir);
+
+  // Make the body follow the head
+  for (let i = 1; i < snake.segments.length; i++) {
+    const prevSegment = snake.segments[i - 1];
+    const currSegment = snake.segments[i];
+    currSegment.moveTo(prevSegment.prevX, prevSegment.prevY);
+  }
+}
+
+/**
+ * We only need to check the head of the snake to see if the whole thing is in bounds
+ * because of the game's movement rules.
+ */
+function checkSnakeOutOfBounds(game) {
+  if (game.snake.segments[0].isOutOfBounds(game.mapWidth, game.mapHeight)) {
+    killSnake(game);
+  }
+}
+
+/**
+ * As the quickest possible thing, just reset the game state when the player dies.
+ */
+function killSnake(game) {
+  initGameState(game);
+}
+
+/**
+ * Checks if the snake eats itself. If so, kill it.
+ */
+function checkSnakeEatSelf(game) {
+  const snakeHead = game.snake.segments[0];
+  for (const segment of game.snake.segments) {
+    if (segment !== snakeHead && segment.isCollidingWith(snakeHead)) {
+      killSnake(game);
+    }
+  }
+}
+
+/**
+ * Check if the snake eats an apple. If so, update the game state to handle it.
+ */
+function checkSnakeEatApple(game) {
+  const snakeHead = game.snake.segments[0];
+  for (const apple of game.apples) {
+    if (snakeHead.isCollidingWith(apple)) {
+      eatApple(game, apple);
+    }
+  }
+}
+
+/**
+ * Has the snake eat an apple, removing the apple and growing the snake.
+ */
+function eatApple(game, apple) {
+  // Increase the score!
+  game.score++;
+
+  // Remove the apple.
+  game.apples.splice(game.apples.indexOf(apple), 1);
+
+  // Create a new end tail segment that looks like the current end of the snake.
+  const endTailSegment = last(game.snake.segments);
+  const newEndTailSegment = endTailSegment.clone();
+
+  // Position the new end tail segment at the previous position of the current end of the snake.
+  newEndTailSegment.moveTo(endTailSegment.prevX, endTailSegment.prevY);
+  game.snake.segments.push(newEndTailSegment);
+  spawnApple(game);
+}
+
+/**
+ * Creates an apple on a random empty square.
+ */
+function spawnApple(game) {
+  const {x, y} = game.getRandomEmptyLocation();
+  const apple = new Entity(x, y);
+  createApple(apple);
+  game.apples.push(apple);
+}
