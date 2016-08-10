@@ -58,10 +58,11 @@ export default class Entity {
   clone() {
     const e = new Entity();
     for (const prop in this) {
-      if (!this.hasOwnProperty(prop) || prop === 'id') { continue; }
-      const val = this[prop];
-      if (typeof prop !== 'function') {
-        e[prop] = val;
+      if (this.hasOwnProperty(prop) && prop !== 'id') {
+        const val = this[prop];
+        if (typeof val !== 'function') {
+          e[prop] = val;
+        }
       }
     }
     return e;
