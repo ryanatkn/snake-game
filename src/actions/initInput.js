@@ -17,16 +17,16 @@ export const KeyCode = { // see http://keycode.info/
 export function updateKeyDown(game, keyCode) {
   switch (keyCode) {
     case KeyCode.Up:
-      game.inputDir = 'up';
+      game.inputMovementCommand('up');
       break;
     case KeyCode.Down:
-      game.inputDir = 'down';
+      game.inputMovementCommand('down');
       break;
     case KeyCode.Left:
-      game.inputDir = 'left';
+      game.inputMovementCommand('left');
       break;
     case KeyCode.Right:
-      game.inputDir = 'right';
+      game.inputMovementCommand('right');
       break;
     default:
       break;

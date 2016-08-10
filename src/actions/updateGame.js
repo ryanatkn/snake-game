@@ -3,17 +3,17 @@ import Entity, {createApple} from '../models/Entity';
 import last from 'lodash/last';
 
 /**
- * Updates the game simulation. Game turns are taken when the `turnTimer` runs out.
+ * Updates the game simulation. Game turns are taken when the `tickTimer` runs out.
  */
 export default function updateGame(game, dt) {
-  game.turnTimer += dt;
+  game.tickTimer += dt;
 
   // Slowly reduce the turn duration to make the game faster and more difficult with time.
-  game.turnDuration *= 0.9999;
+  game.tickDuration *= 0.9999;
 
-  if (game.turnTimer >= game.turnDuration) {
-    takeTurn(game);
-    game.turnTimer = 0;
+  if (game.tickTimer >= game.tickDuration) {
+    tick(game);
+    game.tickTimer = 0;
   }
 }
 
@@ -24,9 +24,12 @@ export default function updateGame(game, dt) {
  * but it is expected to be in a fully valid state before and after the function.
  * Any potentially illegal states need to be checked and reconciled before the function ends.
  */
-function takeTurn(game) {
-  // Move the snake with the last input direction
-  moveSnake(game.snake, game.inputDir);
+function tick(game) {
+  // Updates state like `game.snake.movementDirection` based on user input
+  updateInput(game);
+
+  // Update entities
+  moveSnake(game.snake, game.snake.movementDirection);
 
   // Check for collision events and handle all possible game state changes.
   checkSnakeOutOfBounds(game);
@@ -35,14 +38,24 @@ function takeTurn(game) {
 }
 
 /**
+ * Update the snake's movement direction with the next input direction, if any.
+ */
+function updateInput(game) {
+  const movementCommand = game.input.movementCommands.shift();
+  if (movementCommand) {
+    game.snake.movementDirection = movementCommand;
+  }
+}
+
+/**
  * Moves the snake in the given direction.
  */
-function moveSnake(snake, inputDir) {
+function moveSnake(snake, movementCommand) {
   const head = snake.segments[0];
 
   // Move the head first, because our algorithm reads the previous positions
   // of the preceding segments to move them to, so this works.
-  head.moveDir(inputDir);
+  head.moveDir(movementCommand);
 
   // Make the body follow the head
   for (let i = 1; i < snake.segments.length; i++) {

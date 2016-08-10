@@ -4,10 +4,10 @@ import Entity, {createTile, createApple, createSnakeSegment} from '../models/Ent
  * Sets up the initial state for a game.
  */
 export default function initGameState(game) {
-  game.turnDuration = 100;
-  game.turnTimer = 0;
+  game.tickDuration = 120;
+  game.tickTimer = 0;
   game.score = 0;
-  game.inputDir = 'up';
+  game.input.movementCommands = ['up'];
 
   // Create the tiles.
   game.tiles.length = 0;
@@ -25,6 +25,7 @@ export default function initGameState(game) {
   game.apples.forEach(createApple);
 
   // Create the initial snake.
+  game.snake.movementDirection = 'up';
   game.snake.segments.length = 0;
   game.snake.segments.push(new Entity(4, 4));
   game.snake.segments.push(new Entity(4, 5));
