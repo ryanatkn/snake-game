@@ -1,7 +1,7 @@
 # Snake game
 
 A simple game of Snake written for a job interview.
-Build off of Facebook's [create-react-app](https://github.com/facebookincubator/create-react-app). 
+Built with Facebook's [create-react-app](https://github.com/facebookincubator/create-react-app).
 Uses React for rendering in a way that has terrible performance, re-rendering everything every animation frame.
 
 See `src/index.js` for how things fit together.

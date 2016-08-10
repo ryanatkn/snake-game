@@ -11,6 +11,7 @@ export default function Entity({entity}) {
         height: entity.height,
         backgroundColor: entity.color,
         transform: `translate3d(${positionX}px, ${positionY}px, 0)`,
+        borderRadius: 5,
       }}
     >
     </div>

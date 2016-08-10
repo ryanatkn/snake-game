@@ -1,6 +1,7 @@
 import React from 'react';
 import Score from './Score';
 import Entity from './Entity';
+import Instructions from './Instructions';
 import './Renderer.css';
 
 /**
@@ -28,6 +29,7 @@ export default function Renderer({game}) {
         </ul>
       </ul>
       <Score score={game.score}/>
+      {game.score === 0 ? <Instructions/> : null}
     </div>
   );
 }
