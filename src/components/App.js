@@ -1,10 +1,10 @@
 import React from 'react';
-import Game from './Game';
+import Renderer from './Renderer';
 
 export default function App({game}) {
   return (
     <div>
-      <Game game={game}/>
+      <Renderer game={game}/>
     </div>
   );
 }
