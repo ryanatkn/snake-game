@@ -1,5 +1,8 @@
 let _id = 0;
 
+export const ENTITY_DEFAULT_WIDTH = 32; // width in pixels of one entity (also assumed to be one tile)
+export const ENTITY_DEFAULT_HEIGHT = 32; // height in pixels of one entity (also assumed to be one tile)
+
 export default class Entity {
   constructor(x, y) {
     if (x) {
@@ -17,8 +20,8 @@ export default class Entity {
   y = 0;
   prevX = 0;
   prevY = 0;
-  width = 32;
-  height = 32;
+  width = ENTITY_DEFAULT_WIDTH;
+  height = ENTITY_DEFAULT_HEIGHT;
   color = 'transparent'; // same as css color
 
   moveTo(x, y) {
@@ -38,7 +41,7 @@ export default class Entity {
       case 'right': return this.moveBy(1, 0);
       case 'up': return this.moveBy(0, -1);
       case 'down': return this.moveBy(0, 1);
-      default: throw new Error('Unknown direction ' + dir);
+      default: throw new Error('Unknown movement direction ' + dir);
     }
   }
 

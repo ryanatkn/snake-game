@@ -10,7 +10,7 @@ import './Renderer.css';
  */
 export default function Renderer({game}) {
   return (
-    <div className="Renderer">
+    <div className="Renderer" style={{width: game.mapWidthPx, height: game.mapHeightPx}}>
       <ul className="Renderer-entities Renderer-layer">
         <ul className="Renderer-tiles Renderer-layer">
           {game.tiles.map((t) => (

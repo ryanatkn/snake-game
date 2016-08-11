@@ -1,4 +1,5 @@
 import random from 'lodash/random';
+import {ENTITY_DEFAULT_WIDTH, ENTITY_DEFAULT_HEIGHT} from './Entity';
 
 const MOVEMENT_COMMAND_QUEUE_SIZE = 4; // how many inputs a player can queue up at once
 
@@ -71,5 +72,21 @@ export default class GameState {
     while (this.input.movementCommands.length > MOVEMENT_COMMAND_QUEUE_SIZE) {
       this.input.movementCommands.shift();
     }
+  }
+
+  /**
+   * Get the height of the map in pixels.
+   * TODO is a good candidate for MobX computed properties.
+   */
+  get mapHeightPx() {
+    return this.mapHeight * ENTITY_DEFAULT_HEIGHT;
+  }
+
+  /**
+   * Get the width of the map in pixels.
+   * TODO is a good candidate for MobX computed properties.
+   */
+  get mapWidthPx() {
+    return this.mapWidth * ENTITY_DEFAULT_WIDTH;
   }
 }

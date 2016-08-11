@@ -1,5 +1,6 @@
 .Renderer {
-
+  position: relative;
+  display: block;
 }
 
 .Renderer-layer {
