@@ -4,8 +4,10 @@ import {ENTITY_DEFAULT_WIDTH, ENTITY_DEFAULT_HEIGHT} from './Entity';
 const MOVEMENT_COMMAND_QUEUE_SIZE = 4; // how many inputs a player can queue up at once
 
 /**
- * The GameState is a class because an entity-component-system would be too much 
- * A lot of the logic is split out into `src/actions`
+ * The GameState is a class because an entity-component-system
+ * would be too much for the scope of this project.
+ * A lot of the logic is split out into `src/actions`.
+ * It's mostly data that should be easy to split into another form.
  */
 export default class GameState {
   mapWidth = 16; // tile count x
@@ -13,6 +15,7 @@ export default class GameState {
   tickDuration = 200; // ms per tick
   tickTimer = 0; // current tick timer
   score = 0; // how many apples have been eaten
+  highScore = Number(localStorage.getItem('game.highScore')) || 0;
   tiles = []; // Entity[]
   apples = []; // Entity[]
   snake = {
@@ -88,5 +91,16 @@ export default class GameState {
    */
   get mapWidthPx() {
     return this.mapWidth * ENTITY_DEFAULT_WIDTH;
+  }
+
+  /**
+   * Sets the current score for the game, saving the best ever back to local storage.
+   */
+  setScore(score) {
+    this.score = score;
+    if (score > this.highScore) {
+      this.highScore = score;
+      localStorage.setItem('game.highScore', this.highScore); // TODO could be more automated, easy with mobx
+    }
   }
 }

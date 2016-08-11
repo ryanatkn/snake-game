@@ -2,13 +2,6 @@
   position: absolute;
   top: 5px;
   left: 5px;
-}
-
-.Score-label {
-  font-size: 10px;
-}
-
-.Score-number {
   font-size: 18px;
   font-weight: 300;
   margin-right: 5px;

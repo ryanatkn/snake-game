@@ -24,6 +24,13 @@ See [create-react-app](https://github.com/facebookincubator/create-react-app) fo
     npm start
 
 
+## More?
+- obstacles
+- feedback for dying
+- sounds
+- eat self mechanics?
+- config like # apples, exposed as advanced form
+
 ## Create React App
 Fast, intuitive, helpful. Would use again!
 

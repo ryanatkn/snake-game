@@ -29,7 +29,7 @@ export default function Renderer({game}) {
         </ul>
       </ul>
       <Score score={game.score}/>
-      {game.score === 0 ? <Instructions/> : null}
+      {game.score === 0 ? <Instructions game={game}/> : null}
     </div>
   );
 }

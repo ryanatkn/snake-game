@@ -4,4 +4,5 @@
   left: 250px;
   font-size: 18px;
   font-weight: 300;
+  word-break: break-all;
 }
