@@ -9,7 +9,6 @@ export default function Entity({entity}) {
       style={{
         width: entity.width,
         height: entity.height,
-        backgroundColor: entity.color,
         left: positionX,
         top: positionY,
       }}

@@ -22,7 +22,6 @@ export default class Entity {
   prevY = 0;
   width = ENTITY_DEFAULT_WIDTH;
   height = ENTITY_DEFAULT_HEIGHT;
-  color = 'transparent'; // same as css color
 
   moveTo(x, y) {
     this.prevX = this.x;
@@ -70,19 +69,4 @@ export default class Entity {
     }
     return e;
   }
-}
-
-export function createTile(entity) {
-  entity.color = '#f7f1f1';
-  return entity;
-}
-
-export function createApple(entity) {
-  entity.color = '#c89';
-  return entity;
-}
-
-export function createSnakeSegment(entity) {
-  entity.color = '#8c9';
-  return entity;
 }

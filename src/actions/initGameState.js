@@ -1,4 +1,4 @@
-import Entity, {createTile, createApple, createSnakeSegment} from '../models/Entity';
+import Entity from '../models/Entity';
 
 /**
  * Sets up the initial state for a game.
@@ -17,7 +17,6 @@ export default function initGameState(game) {
       game.tiles.push(new Entity(x, y));
     }
   }
-  game.tiles.forEach(createTile);
 
   // Create some apples, but preserve current identities if convenient.
   if (game.apples.length !== 3) {
@@ -29,7 +28,6 @@ export default function initGameState(game) {
   game.apples[0].moveTo(1, 3);
   game.apples[1].moveTo(7, 2);
   game.apples[2].moveTo(5, 9);
-  game.apples.forEach(createApple);
 
   // Create the initial snake.
   game.snake.movementDirection = 'up';
@@ -39,5 +37,4 @@ export default function initGameState(game) {
   game.snake.segments.push(new Entity(5, 5));
   game.snake.segments.push(new Entity(5, 6));
   game.snake.segments.push(new Entity(5, 7));
-  game.snake.segments.forEach(createSnakeSegment);
 }

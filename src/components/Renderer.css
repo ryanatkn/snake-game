@@ -13,7 +13,12 @@
   padding: 0;
 }
 
-.Renderer-apples .Entity { 
+.Renderer-tiles .Entity {
+  background-color: #f7f1f1;
+}
+
+.Renderer-apples .Entity {
+  background-color: #c89; 
   border-radius: 17px 14px 12px 10px ;
   animation: pop-in 0.66s ease-in-out;
 }
@@ -31,13 +36,13 @@
 }
 
 .Renderer-snake .Entity {
-  opacity: 0.7;
+  background-color: #9da;
 }
-.Renderer-snake .Entity:nth-child(1) {
-  opacity: 1.0;
+.Renderer-snake .Entity:first-child {
+  background-color: #8c9;
 }
 .Renderer-snake .Entity:last-child {
-  opacity: 0.85;
+  background-color: #97d7a7;
 }
 
 .Renderer-snake .Entity:first-child:after {

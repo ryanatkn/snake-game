@@ -1,5 +1,5 @@
 import initGameState from './initGameState';
-import Entity, {createApple} from '../models/Entity';
+import Entity from '../models/Entity';
 import last from 'lodash/last';
 
 /**
@@ -132,6 +132,5 @@ function eatApple(game, apple) {
 function spawnApple(game) {
   const {x, y} = game.getRandomEmptyLocation();
   const apple = new Entity(x, y);
-  createApple(apple);
   game.apples.push(apple);
 }
