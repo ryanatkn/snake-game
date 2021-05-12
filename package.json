@@ -3,6 +3,11 @@
   "version": "0.0.1",
   "homepage": "https://ryanatkn.github.io/snake-game",
   "license": "Unlicense",
+  "author": {
+    "name": "Ryan Atkinson",
+    "email": "mail@ryanatkn.com",
+    "url": "https://www.ryanatkn.com"
+  },
   "devDependencies": {
     "react-scripts": "0.2.1"
   },
