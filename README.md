@@ -36,4 +36,5 @@ Fast, intuitive, helpful. Would use again!
 
 
 ## License
-MIT
+
+public domain ([The Unlicense](license))
